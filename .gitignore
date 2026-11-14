@@ -1,0 +1,6 @@
+.venv/
+.mornye-data/
+.mornye-migration/
+downloads/
+__pycache__/
+*.pyc

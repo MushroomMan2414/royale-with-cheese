@@ -1,0 +1,28 @@
+services:
+  mornye:
+    build:
+      context: .
+      additional_contexts:
+        host: ../Mornye-Python
+        packages: ../Mornye-Extension/extensions
+    image: royale-mornye-local
+    ports:
+      - "127.0.0.1:${MORNYE_PORT:-18080}:8000"
+    environment:
+      MORNYE_DATA_DIR: /data
+      MORNYE_DOWNLOAD_DIR: /downloads
+    volumes:
+      - mornye-data:/data
+      - ./downloads:/downloads
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=1g,mode=1777
+    shm_size: 1gb
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  mornye-data:
